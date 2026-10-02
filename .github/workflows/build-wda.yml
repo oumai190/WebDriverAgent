@@ -18,9 +18,7 @@ jobs:
             -derivedDataPath DerivedData \
             CODE_SIGNING_ALLOWED=NO
 
-      - name: Packag e as unsigned IPA
-
-            - name: Thin fat Mach-O binaries to arm64
+      - name: Thin fat Mach-O binaries to arm64
         run: |
           APP="DerivedData/Build/Products/Debug-iphoneos/WebDriverAgentRunner-Runner.app"
           find "$APP" -type f | while read -r f; do
@@ -29,6 +27,8 @@ jobs:
               lipo -thin arm64 "$f" -output "$f.thin" && mv "$f.thin" "$f"
             fi
           done
+
+      - name: Package as unsigned IPA
         run: |
           cd DerivedData/Build/Products/Debug-iphoneos
           mkdir Payload
