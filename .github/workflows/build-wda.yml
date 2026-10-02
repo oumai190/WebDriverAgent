@@ -18,6 +18,11 @@ jobs:
             -derivedDataPath DerivedData \
             CODE_SIGNING_ALLOWED=NO
 
+      - name: Strip DWARF debug symbols
+        run: |
+          APP="DerivedData/Build/Products/Debug-iphoneos/WebDriverAgentRunner-Runner.app"
+          find "$APP" -type d -name DWARF -print -exec rm -rf {} +
+
       - name: Thin fat Mach-O binaries to arm64
         run: |
           APP="DerivedData/Build/Products/Debug-iphoneos/WebDriverAgentRunner-Runner.app"
